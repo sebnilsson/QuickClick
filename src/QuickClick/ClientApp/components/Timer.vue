@@ -18,26 +18,32 @@
 
             <div class="form-group text-center">
                 <button @click="start" :disabled="isTimerRunning" class="btn btn-success">
-                    {{ !this.isTimerDone ? 'Start' : 'Restart' }}
+                    {{ !isTimerDone ? 'Start' : 'Restart' }}
                 </button>
                 <button @click="pause" :disabled="!isTimerRunning" class="btn btn-warning">
                     Pause
                 </button>
                 <button @click="stop" :disabled="timerElapsed <= 0" class="btn btn-danger">
-                    {{ !this.isTimerDone ? 'Stop' : 'Reset' }}
+                    {{ !isTimerDone ? 'Stop' : 'Reset' }}
                 </button>
             </div>
         </div>
 
         <div :class="{'bg-dark text-white': !isTimerDone && !isTimerRunning, 'bg-success text-white': isTimerDone, 'bg-warning': isTimerRunning && !isTimerDone, 'card-body text-center': true}">
-            <template v-if="!isTimerDone">
-                <code class="bg-light px-2 py-1">
+            <div>
+                <span v-if="!isTimerDone" class="text-monospace bg-light text-dark px-2 py-1">
                     {{ timerDisplay }}
-                </code>
-            </template>
-            <span v-if="isTimerDone">
-                Done!
-            </span>
+                </span>
+                <strong v-if="isTimerDone" class="bg-light text-dark px-2 py-1">
+                    Done!
+                </strong>
+            </div>
+            <div v-if="true || isTimerRunning || currentSession.clicks.length" class="mt-2">
+                <strong>Clicks:</strong>
+                <span class="text-monospace bg-light text-dark px-2 py-1">
+                    {{ currentSession.clicks.length }}
+                </span>
+            </div>
         </div>
 
         <div class="card-footer bg-primary text-white">

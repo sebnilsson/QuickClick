@@ -7,9 +7,19 @@ const defaultTimerLength = 10;
 export default abstract class StorageService {
 	static getSessions(): Array<ISession> {
 		const stored : any = localStorage.getItem(sessionsStorageKey);
-		const sessions = JSON.parse(stored);
+		const sessions : any = JSON.parse(stored) || [];
 
-		return sessions || [];
+		sessions.forEach((s: ISession) => {
+			const parsedStartedAt = this.parseJsonDate(s.startedAt);
+			s.startedAt = parsedStartedAt;
+
+			const parsedClicks = s.clicks.map(c => this.parseJsonDate(c));
+			
+			s.clicks.splice(0, s.clicks.length);
+			parsedClicks.forEach(c => s.clicks.push(c));
+		});
+		
+		return sessions;
 	}
 
 	static saveSessions(sessions: Array<ISession>): void {
@@ -27,5 +37,9 @@ export default abstract class StorageService {
 
 	static saveTimerLength(timerLength: number) {
 		localStorage.setItem(timerLengthStorageKey, timerLength.toString());
+	}
+
+	private static parseJsonDate(date: any): Date {
+		return new Date(Date.parse(date));
 	}
 }

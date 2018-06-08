@@ -14,7 +14,7 @@ export default class Timer extends Vue {
 	timerLength: number = StorageService.getTimerLength();
 
 	private intervalId: number = -1;
-	private currentSession: ISession;
+	private currentSession: ISession = this.createSession();
 	
 	@Emit()
 	start() {
@@ -42,6 +42,7 @@ export default class Timer extends Vue {
 	stop() {
 		this.pause();
 		this.timerElapsed = 0;
+		this.currentSession = this.createSession();
 	}
 
 	@Emit()

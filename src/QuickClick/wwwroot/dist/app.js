@@ -13283,9 +13283,17 @@ var StorageService = /** @class */ (function () {
     function StorageService() {
     }
     StorageService.getSessions = function () {
+        var _this = this;
         var stored = localStorage.getItem(sessionsStorageKey);
-        var sessions = JSON.parse(stored);
-        return sessions || [];
+        var sessions = JSON.parse(stored) || [];
+        sessions.forEach(function (s) {
+            var parsedStartedAt = _this.parseJsonDate(s.startedAt);
+            s.startedAt = parsedStartedAt;
+            var parsedClicks = s.clicks.map(function (c) { return _this.parseJsonDate(c); });
+            s.clicks.splice(0, s.clicks.length);
+            parsedClicks.forEach(function (c) { return s.clicks.push(c); });
+        });
+        return sessions;
     };
     StorageService.saveSessions = function (sessions) {
         var sessionsJson = JSON.stringify(sessions);
@@ -13298,6 +13306,9 @@ var StorageService = /** @class */ (function () {
     };
     StorageService.saveTimerLength = function (timerLength) {
         localStorage.setItem(timerLengthStorageKey, timerLength.toString());
+    };
+    StorageService.parseJsonDate = function (date) {
+        return new Date(Date.parse(date));
     };
     return StorageService;
 }());
@@ -13912,7 +13923,7 @@ var render = function() {
           [
             _vm._v(
               "\n                " +
-                _vm._s(!this.isTimerDone ? "Start" : "Restart") +
+                _vm._s(!_vm.isTimerDone ? "Start" : "Restart") +
                 "\n            "
             )
           ]
@@ -13938,7 +13949,7 @@ var render = function() {
           [
             _vm._v(
               "\n                " +
-                _vm._s(!this.isTimerDone ? "Stop" : "Reset") +
+                _vm._s(!_vm.isTimerDone ? "Stop" : "Reset") +
                 "\n            "
             )
           ]
@@ -13957,23 +13968,46 @@ var render = function() {
         }
       },
       [
-        !_vm.isTimerDone
-          ? [
-              _c("code", { staticClass: "bg-light px-2 py-1" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.timerDisplay) +
-                    "\n            "
-                )
+        _c("div", [
+          !_vm.isTimerDone
+            ? _c(
+                "span",
+                { staticClass: "text-monospace bg-light text-dark px-2 py-1" },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.timerDisplay) +
+                      "\n            "
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isTimerDone
+            ? _c("strong", { staticClass: "bg-light text-dark px-2 py-1" }, [
+                _vm._v("\n                Done!\n            ")
               ])
-            ]
-          : _vm._e(),
+            : _vm._e()
+        ]),
         _vm._v(" "),
-        _vm.isTimerDone
-          ? _c("span", [_vm._v("\n            Done!\n        ")])
-          : _vm._e()
-      ],
-      2
+         true
+          ? _c("div", { staticClass: "mt-2" }, [
+              _c("strong", [_vm._v("Clicks:")]),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "text-monospace bg-light text-dark px-2 py-1" },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.currentSession.clicks.length) +
+                      "\n            "
+                  )
+                ]
+              )
+            ])
+          : undefined
+      ]
     ),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer bg-primary text-white" }, [
@@ -14056,6 +14090,7 @@ var Timer = /** @class */ (function (_super) {
         _this.timerElapsed = 0;
         _this.timerLength = _StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].getTimerLength();
         _this.intervalId = -1;
+        _this.currentSession = _this.createSession();
         return _this;
     }
     Timer.prototype.start = function () {
@@ -14078,6 +14113,7 @@ var Timer = /** @class */ (function (_super) {
     Timer.prototype.stop = function () {
         this.pause();
         this.timerElapsed = 0;
+        this.currentSession = this.createSession();
     };
     Timer.prototype.done = function (session) {
         session.elapsed = this.timerElapsed;
