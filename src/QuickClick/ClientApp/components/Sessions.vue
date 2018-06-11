@@ -13,7 +13,9 @@
             </div>
         </div>
 
-        <div class="card my-3">
+        <SessionsGraph :sessions="sessions" />
+
+        <div class="card">
             <div class="card-status bg-purple"></div>
             <table v-if="sessions.length" class="table table-responsive-md table-bordered table-striped table-sm text-monospace mb-0">
                 <thead class="thead-dark">

@@ -38,8 +38,8 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin(),
         new CopyWebpackPlugin([
-            { from: './node_modules/moment/min/moment.min.js', to: './libs/' },
-            { from: './node_modules/numeral/min/numeral.min.js', to: './libs/' },
+            { from: './node_modules/moment/min/moment.min.js', to: './libs/js/' },
+            { from: './node_modules/numeral/min/numeral.min.js', to: './libs/js/' },
             { from: './node_modules/bootstrap/dist/css/bootstrap.min.css', to: './libs/css/' },
             { from: './node_modules/tabler-ui/dist/assets/css/dashboard.css', to: './libs/css/' }
         ])

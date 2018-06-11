@@ -4,11 +4,15 @@ import DateFilter from '../filters/DateFilter';
 import DateTimeFilter from '../filters/DateTimeFilter';
 import ElapsedFilter from '../filters/ElapsedFilter';
 import ISession from '../ISession';
+import SessionsGraph from './SessionsGraph.vue';
 import TimeFilter from '../filters/TimeFilter';
 import TimeMsFilter from '../filters/TimeMsFilter';
 import TwoDigitFilter from '../filters/TwoDigitFilter';
 
 @Component({
+	components: {
+		SessionsGraph
+	},
 	filters: {
 		'elapsed': ElapsedFilter,
 		'date': DateFilter,
