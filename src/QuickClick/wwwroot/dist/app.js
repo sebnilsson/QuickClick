@@ -11548,7 +11548,7 @@ process.umask = function() { return 0; };
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue_vue_type_template_id_07689baf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var _App_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
 
 
 
@@ -11662,7 +11662,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _SessionService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
 /* harmony import */ var _Sessions_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
-/* harmony import */ var _Timer_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
+/* harmony import */ var _Timer_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -13263,7 +13263,6 @@ var SessionService = /** @class */ (function () {
     };
     SessionService.sortSessions = function (sessions) {
         sessions.sort(function (a, b) { return (a.startedAt > b.startedAt ? -1 : (b.startedAt > a.startedAt) ? 1 : 0); });
-        console.log('sortSessions -- sessions: ', sessions);
     };
     return SessionService;
 }());
@@ -13323,7 +13322,7 @@ var StorageService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sessions_vue_vue_type_template_id_e56a8202__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
 /* harmony import */ var _Sessions_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
 
 
 
@@ -13372,145 +13371,163 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card my-3" }, [
-    _c("div", { staticClass: "card-header h5" }, [
-      _vm._v(
-        "\n        Sessions " +
-          _vm._s(_vm.sessions.length ? "(" + _vm.sessions.length + ")" : "") +
-          "\n    "
-      )
+  return _c("div", [
+    _c("div", { staticClass: "card p-3" }, [
+      _c("div", { staticClass: "d-flex align-items-center" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", [
+          _c("h4", { staticClass: "m-0" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.sessions.length ? _vm.sessions.length : "") +
+                " "
+            ),
+            _c("small", [_vm._v("Sessions")])
+          ])
+        ])
+      ])
     ]),
     _vm._v(" "),
-    _vm.sessions.length
-      ? _c(
-          "table",
-          {
-            staticClass:
-              "table table-responsive-md table-bordered table-striped table-sm"
-          },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              [
-                _vm._l(_vm.sessions, function(session) {
-                  return [
-                    _c("tr", [
-                      _c("th", { staticClass: "text-monospace" }, [
-                        _c("span", { staticClass: "no-wrap" }, [
+    _c("div", { staticClass: "card my-3" }, [
+      _c("div", { staticClass: "card-status bg-purple" }),
+      _vm._v(" "),
+      _vm.sessions.length
+        ? _c(
+            "table",
+            {
+              staticClass:
+                "table table-responsive-md table-bordered table-striped table-sm text-monospace mb-0"
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                [
+                  _vm._l(_vm.sessions, function(session) {
+                    return [
+                      _c("tr", [
+                        _c("th", [
+                          _c("span", { staticClass: "no-wrap" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm._f("date")(session.startedAt)) +
+                                "\n                            "
+                            )
+                          ]),
                           _vm._v(
                             "\n                            " +
-                              _vm._s(_vm._f("date")(session.startedAt)) +
+                              _vm._s(_vm._f("time")(session.startedAt)) +
                               "\n                        "
                           )
                         ]),
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm._f("time")(session.startedAt)) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-monospace text-right" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm._f("elapsed")(session.elapsed)) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-monospace text-right" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(session.clicks.length || 0) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-monospace text-right" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(
-                              session.clicks.length / (session.elapsed / 1000)
-                            ) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger btn-sm ml-2 px-1 py-0",
-                            on: {
-                              click: function($event) {
-                                _vm.remove(session)
-                              }
-                            }
-                          },
-                          [_vm._v("Remove")]
-                        ),
                         _vm._v(" "),
-                        session.clicks.length
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-link btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    session.isExpanded = !session.isExpanded
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            " +
-                                    _vm._s(
-                                      !session.isExpanded ? "Details" : "Hide"
-                                    ) +
-                                    "\n                        "
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm._f("elapsed")(session.elapsed)) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(session.clicks.length || 0) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(
+                                _vm._f("twodigit")(
+                                  session.clicks.length /
+                                    (session.elapsed / 1000)
                                 )
-                              ]
-                            )
-                          : _vm._e()
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    session.isExpanded
-                      ? _c("tr", { staticClass: "bg-dark text-white" }, [
+                              ) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
                           _c(
-                            "td",
-                            { attrs: { colspan: "5" } },
-                            _vm._l(session.clicks, function(click) {
-                              return _c(
-                                "span",
+                            "button",
+                            {
+                              staticClass: "btn btn-link btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.remove(session)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "far fa-trash-alt text-danger",
+                                attrs: { title: "Remove" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          session.clicks.length
+                            ? _c(
+                                "button",
                                 {
-                                  staticClass:
-                                    "badge badge-pill badge-light m-1"
+                                  staticClass: "btn btn-link btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      session.isExpanded = !session.isExpanded
+                                    }
+                                  }
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(_vm._f("timems")(click)) +
-                                      "\n                        "
-                                  )
+                                  _c("i", {
+                                    class: {
+                                      "fas fa-chevron-down": !session.isExpanded,
+                                      "fas fa-chevron-up": session.isExpanded
+                                    },
+                                    attrs: { title: "Details" }
+                                  })
                                 ]
                               )
-                            })
-                          )
+                            : _vm._e()
                         ])
-                      : _vm._e()
-                  ]
-                })
-              ],
-              2
-            )
-          ]
-        )
-      : _c("div", { staticClass: "card-body" }, [
-          _c("em", [_vm._v("No sessions")])
-        ])
+                      ]),
+                      _vm._v(" "),
+                      session.isExpanded
+                        ? _c("tr", { staticClass: "bg-dark text-white" }, [
+                            _c(
+                              "td",
+                              { attrs: { colspan: "5" } },
+                              _vm._l(session.clicks, function(click) {
+                                return _c(
+                                  "span",
+                                  { staticClass: "badge badge-default m-1" },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(_vm._f("timems")(click)) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              })
+                            )
+                          ])
+                        : _vm._e()
+                    ]
+                  })
+                ],
+                2
+              )
+            ]
+          )
+        : _c("div", { staticClass: "card-body" }, [
+            _c("em", [_vm._v("No sessions")])
+          ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -13518,15 +13535,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "stamp stamp-md bg-purple mr-3" }, [
+      _c("i", { staticClass: "fas fa-list" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-dark" }, [
       _c("tr", { staticClass: "text-center" }, [
-        _c("th", [_vm._v("Started")]),
+        _c("th", [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v("\n                        Started\n                    ")
+        ]),
         _vm._v(" "),
-        _c("th", [_vm._v("Elapsed")]),
+        _c("th", [
+          _c("i", { staticClass: "fas fa-stopwatch" }),
+          _vm._v("\n                        Elapsed\n                    ")
+        ]),
         _vm._v(" "),
-        _c("th", [_vm._v("Clicks")]),
+        _c("th", [
+          _c("i", { staticClass: "far fa-hand-pointer" }),
+          _vm._v("\n                        Clicks\n                    ")
+        ]),
         _vm._v(" "),
-        _c("th", [_vm._v("Clicks/s")]),
+        _c("th", [
+          _c("i", { staticClass: "far fa-check-circle" }),
+          _vm._v("\n                        Clicks/s\n                    ")
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v(" ")])
       ])
@@ -13557,6 +13594,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _filters_ElapsedFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
 /* harmony import */ var _filters_TimeFilter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
 /* harmony import */ var _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
+/* harmony import */ var _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -13576,6 +13614,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -13609,7 +13648,8 @@ var Sessions = /** @class */ (function (_super) {
                 'elapsed': _filters_ElapsedFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
                 'date': _filters_DateFilter__WEBPACK_IMPORTED_MODULE_1__["default"],
                 'time': _filters_TimeFilter__WEBPACK_IMPORTED_MODULE_3__["default"],
-                'timems': _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_4__["default"]
+                'timems': _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_4__["default"],
+                'twodigit': _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_5__["default"]
             }
         })
     ], Sessions);
@@ -13715,6 +13755,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (target) {
+    return numeral(target).format('0,0.00');
+});
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
 /* globals __VUE_SSR_CONTEXT__ */
 
@@ -13812,14 +13863,14 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Timer_vue_vue_type_template_id_8f281d5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
-/* harmony import */ var _Timer_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* harmony import */ var _Timer_vue_vue_type_template_id_8f281d5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _Timer_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
 
 
 
@@ -13844,12 +13895,12 @@ component.options.__file = "ClientApp\\components\\Timer.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timer_vue_vue_type_template_id_8f281d5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timer_vue_vue_type_template_id_8f281d5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timer_vue_vue_type_template_id_8f281d5a__WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timer_vue_vue_type_template_id_8f281d5a__WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
@@ -13857,7 +13908,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13868,163 +13919,164 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card my-3" }, [
-    _c("div", { staticClass: "card-header h5" }, [
-      _vm._v(
-        "\n        Timer " +
-          _vm._s(_vm.isTimerRunning ? "(Running)" : "") +
-          "\n    "
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "form-inline form-group" }, [
-        _c("label", { attrs: { for: "timer-length" } }, [_vm._v("Length")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.timerLength,
-                expression: "timerLength"
-              }
-            ],
-            staticClass: "form-control ml-2",
-            attrs: {
-              disabled: _vm.isTimerRunning,
-              id: "timer-length",
-              type: "number"
-            },
-            domProps: { value: _vm.timerLength },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.timerLength = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm._m(0)
-        ])
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-status card-status-left bg-blue" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-header h5" }, [
+        _vm._v(
+          "\n            Timer " +
+            _vm._s(_vm.isTimerRunning ? "(Running)" : "") +
+            "\n        "
+        )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group text-center" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success",
-            attrs: { disabled: _vm.isTimerRunning },
-            on: { click: _vm.start }
-          },
-          [
-            _vm._v(
-              "\n                " +
-                _vm._s(!_vm.isTimerDone ? "Start" : "Restart") +
-                "\n            "
-            )
-          ]
-        ),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "form-inline form-group" }, [
+          _c("div", { staticClass: "input-group" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.timerLength,
+                  expression: "timerLength"
+                }
+              ],
+              staticClass: "form-control text-right",
+              attrs: {
+                disabled: _vm.isTimerRunning,
+                id: "timer-length",
+                type: "number",
+                min: "0",
+                list: "defaulTtimerLengths"
+              },
+              domProps: { value: _vm.timerLength },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.timerLength = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2)
+          ])
+        ]),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-warning",
-            attrs: { disabled: !_vm.isTimerRunning },
-            on: { click: _vm.pause }
-          },
-          [_vm._v("\n                Pause\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger",
-            attrs: { disabled: _vm.timerElapsed <= 0 },
-            on: { click: _vm.stop }
-          },
-          [
-            _vm._v(
-              "\n                " +
-                _vm._s(!_vm.isTimerDone ? "Stop" : "Reset") +
-                "\n            "
-            )
-          ]
-        )
+        _c("div", { staticClass: "form-group text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-square btn-success",
+              attrs: { disabled: _vm.isTimerRunning || _vm.timerLength <= 0 },
+              on: { click: _vm.start }
+            },
+            [
+              _c("i", { staticClass: "fas fa-play" }),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(!_vm.isTimerDone ? "Start" : "Restart") +
+                  "\n                "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-square btn-warning text-dark",
+              attrs: { disabled: !_vm.isTimerRunning },
+              on: { click: _vm.pause }
+            },
+            [
+              _c("i", { staticClass: "fas fa-pause" }),
+              _vm._v("\n                    Pause\n                ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-square btn-secondary",
+              attrs: { disabled: _vm.timerElapsed <= 0 || _vm.isTimerRunning },
+              on: { click: _vm.stop }
+            },
+            [
+              _c("i", { staticClass: "fas fa-undo" }),
+              _vm._v("\n                    Reset\n                ")
+            ]
+          )
+        ])
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        class: {
-          "bg-dark text-white": !_vm.isTimerDone && !_vm.isTimerRunning,
-          "bg-success text-white": _vm.isTimerDone,
-          "bg-warning": _vm.isTimerRunning && !_vm.isTimerDone,
-          "card-body text-center": true
-        }
-      },
-      [
-        _c("div", [
-          !_vm.isTimerDone
-            ? _c(
-                "span",
-                { staticClass: "text-monospace bg-light text-dark px-2 py-1" },
-                [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body p-3 text-center" }, [
+            _vm.clicksPerSecond
+              ? _c("div", { staticClass: "text-right text-primary" }, [
+                  _c("i", { staticClass: "far fa-check-circle" }),
                   _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.timerDisplay) +
-                      "\n            "
+                    "\n                        " +
+                      _vm._s(_vm._f("twodigit")(_vm.clicksPerSecond)) +
+                      "\n                    "
                   )
-                ]
+                ])
+              : _c("div", [_vm._v(" ")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                class: {
+                  "bg-success text-white": _vm.isTimerDone,
+                  "bg-warning": _vm.isTimerRunning && !_vm.isTimerDone,
+                  "h1 m-0 text-monospace": true
+                }
+              },
+              [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm._f("singledigit")(_vm.timerDisplay)) +
+                    "\n                    "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(3)
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body p-3 text-center" }, [
+            _c("div", { staticClass: "text-right" }, [
+              _vm._v("\n                         \n                    ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "h1 m-0 text-monospace" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.currentSession.clicks.length) +
+                  "\n                    "
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.isTimerDone
-            ? _c("strong", { staticClass: "bg-light text-dark px-2 py-1" }, [
-                _vm._v("\n                Done!\n            ")
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-         true
-          ? _c("div", { staticClass: "mt-2" }, [
-              _c("strong", [_vm._v("Clicks:")]),
-              _vm._v(" "),
-              _c(
-                "span",
-                { staticClass: "text-monospace bg-light text-dark px-2 py-1" },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.currentSession.clicks.length) +
-                      "\n            "
-                  )
-                ]
-              )
-            ])
-          : undefined
-      ]
-    ),
+            ]),
+            _vm._v(" "),
+            _vm._m(4)
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card-footer bg-primary text-white" }, [
-      !_vm.isTimerRunning
-        ? _c("span", [
-            _vm._v("\n            Press the "),
-            _c("span", { staticClass: "text-monospace" }, [_vm._v("Start")]),
-            _vm._v(
-              "-button and click any button on keyboard or mouse to measure your click-speed.\n        "
-            )
-          ])
-        : _c("span", [
-            _vm._v(
-              "\n            Click any button on keyboard or mouse to measure your click-speed.\n        "
-            )
-          ])
-    ])
+    _vm._m(5)
   ])
 }
 var staticRenderFns = [
@@ -14032,9 +14084,76 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-prepend" }, [
+      _c(
+        "label",
+        { staticClass: "input-group-text", attrs: { for: "timer-length" } },
+        [_c("i", { staticClass: "fas fa-stopwatch" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("datalist", { attrs: { id: "defaulTtimerLengths" } }, [
+      _c("option", { attrs: { value: "10" } }),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "20" } }),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "30" } }),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "60" } }),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "120" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-append" }, [
       _c("span", { staticClass: "input-group-text" }, [
-        _vm._v("\n                        Seconds\n                    ")
+        _c("small", [
+          _vm._v(
+            "\n                                Seconds\n                            "
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-muted mb-4" }, [
+      _c("i", { staticClass: "fas fa-stopwatch" }),
+      _vm._v("\n                        Elapsed\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-muted mb-4" }, [
+      _c("i", { staticClass: "far fa-hand-pointer" }),
+      _vm._v("\n                        Clicks\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert alert-primary" }, [
+      _c("small", [
+        _vm._v("\n            Press the "),
+        _c("span", { staticClass: "text-monospace" }, [
+          _c("i", { staticClass: "fas fa-play" }),
+          _vm._v(" Start ")
+        ]),
+        _vm._v(
+          "-button\n            and click any button on the keyboard or mouse to measure your click-speed.\n        "
+        )
       ])
     ])
   }
@@ -14044,22 +14163,24 @@ render._withStripped = true
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_0_Timer_ts_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_0_Timer_ts_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_0_Timer_ts_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _StorageService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* harmony import */ var _filters_SingleDigitFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
+/* harmony import */ var _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(28);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -14081,6 +14202,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var timerIntervalMs = 100;
 var Timer = /** @class */ (function (_super) {
     __extends(Timer, _super);
@@ -14095,11 +14218,10 @@ var Timer = /** @class */ (function (_super) {
     }
     Timer.prototype.start = function () {
         var _this = this;
-        if (this.isTimerDone) {
-            this.timerElapsed = 0;
+        if (this.timerElapsed <= 0 || this.isTimerDone) {
+            this.reset();
         }
         this.isTimerRunning = true;
-        this.currentSession = this.createSession();
         window.addEventListener('keydown', this.handleKeyUp, true);
         window.addEventListener('mousedown', this.handleKeyUp, true);
         this.intervalId = setInterval(function () { return _this.increaseTimer(); }, timerIntervalMs);
@@ -14112,36 +14234,22 @@ var Timer = /** @class */ (function (_super) {
     };
     Timer.prototype.stop = function () {
         this.pause();
-        this.timerElapsed = 0;
-        this.currentSession = this.createSession();
+        this.reset();
     };
-    Timer.prototype.done = function (session) {
-        session.elapsed = this.timerElapsed;
-    };
-    Timer.prototype.handleKeyUp = function (e) {
-        this.currentSession.clicks.push(new Date());
-        if (typeof e.preventDefault === 'function') {
-            e.preventDefault();
-        }
-    };
-    Timer.prototype.onTimerElapsedChanged = function (value, oldValue) {
-        if (this.isTimerDone) {
-            this.pause();
-            if (this.currentSession.clicks.length) {
-                this.done(this.currentSession);
-            }
-        }
-    };
-    Object.defineProperty(Timer.prototype, "isTimerDone", {
+    Object.defineProperty(Timer.prototype, "clicksPerSecond", {
         get: function () {
-            return (this.timerElapsed >= this.timerLengthSeconds);
+            return (this.currentSession.clicks.length / (this.timerElapsed / 1000));
         },
         enumerable: true,
         configurable: true
     });
-    Timer.prototype.onTimerLengthChanged = function (value, oldValue) {
-        _StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].saveTimerLength(value);
-    };
+    Object.defineProperty(Timer.prototype, "isTimerDone", {
+        get: function () {
+            return (this.timerLengthSeconds > 0 && this.timerElapsed >= this.timerLengthSeconds);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Timer.prototype, "timerLengthSeconds", {
         get: function () {
             return (this.timerLength * 1000);
@@ -14151,21 +14259,26 @@ var Timer = /** @class */ (function (_super) {
     });
     Object.defineProperty(Timer.prototype, "timerDisplay", {
         get: function () {
-            var ms = moment().set({
-                'month': 0,
-                'date': 1,
-                'hour': 0,
-                'minute': 0,
-                'second': 0,
-                'millisecond': this.timerElapsed
-            });
-            return ms.format('mm:ss.SSS');
+            var ms = moment.duration(this.timerElapsed / 1000, 'seconds');
+            return ms.asSeconds();
         },
         enumerable: true,
         configurable: true
     });
-    Timer.prototype.increaseTimer = function () {
-        this.timerElapsed = this.timerElapsed + timerIntervalMs;
+    Timer.prototype.done = function (session) {
+        session.elapsed = this.timerElapsed;
+    };
+    Timer.prototype.onTimerElapsedChanged = function (value, oldValue) {
+        if (this.isTimerDone) {
+            this.pause();
+            if (this.currentSession.clicks.length) {
+                this.done(this.currentSession);
+            }
+        }
+    };
+    Timer.prototype.onTimerLengthChanged = function (value, oldValue) {
+        this.reset();
+        _StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].saveTimerLength(value);
     };
     Timer.prototype.createSession = function () {
         var id = (Math.random().toString(36) + '00000000000000000').slice(2, 8 + 2);
@@ -14176,6 +14289,19 @@ var Timer = /** @class */ (function (_super) {
             elapsed: -1,
             isExpanded: false
         };
+    };
+    Timer.prototype.handleKeyUp = function (e) {
+        this.currentSession.clicks.push(new Date());
+        if (typeof e.preventDefault === 'function') {
+            e.preventDefault();
+        }
+    };
+    Timer.prototype.increaseTimer = function () {
+        this.timerElapsed = this.timerElapsed + timerIntervalMs;
+    };
+    Timer.prototype.reset = function () {
+        this.timerElapsed = 0;
+        this.currentSession = this.createSession();
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Emit"])(),
@@ -14202,11 +14328,27 @@ var Timer = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], Timer.prototype, "onTimerLengthChanged", null);
     Timer = __decorate([
-        vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"]
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            filters: {
+                'singledigit': _filters_SingleDigitFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
+                'twodigit': _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_3__["default"]
+            }
+        })
     ], Timer);
     return Timer;
 }(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"]));
 /* harmony default export */ __webpack_exports__["default"] = (Timer);
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (target) {
+    return numeral(target).format('0,0.0');
+});
 
 
 /***/ })

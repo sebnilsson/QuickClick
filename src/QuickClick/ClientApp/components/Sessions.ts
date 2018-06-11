@@ -5,13 +5,15 @@ import ElapsedFilter from '../filters/ElapsedFilter';
 import ISession from '../ISession';
 import TimeFilter from '../filters/TimeFilter';
 import TimeMsFilter from '../filters/TimeMsFilter';
+import TwoDigitFilter from '../filters/TwoDigitFilter';
 
 @Component({
 	filters: {
 		'elapsed': ElapsedFilter,
 		'date': DateFilter,
 		'time': TimeFilter,
-		'timems': TimeMsFilter
+		'timems': TimeMsFilter,
+		'twodigit': TwoDigitFilter
 	}
 })
 export default class Sessions extends Vue {

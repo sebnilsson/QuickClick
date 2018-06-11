@@ -34,6 +34,5 @@ export default abstract class SessionService {
 
 	private static sortSessions(sessions: Array<ISession>) {
 		sessions.sort((a, b) => (a.startedAt > b.startedAt ? -1 : (b.startedAt > a.startedAt) ? 1 : 0));
-		console.log('sortSessions -- sessions: ', sessions);
 	}
 }

@@ -4,10 +4,17 @@ import { Vue, Component, Emit, Watch } from "vue-property-decorator";
 
 import ISession from '../ISession';
 import StorageService from '../StorageService';
+import SingleDigitFilter from '../filters/SingleDigitFilter';
+import TwoDigitFilter from '../filters/TwoDigitFilter';
 
 const timerIntervalMs = 100;
 
-@Component
+@Component({
+	filters: {
+		'singledigit': SingleDigitFilter,
+		'twodigit': TwoDigitFilter
+	}
+})
 export default class Timer extends Vue {
 	isTimerRunning: boolean = false;
 	timerElapsed: number = 0;
@@ -18,11 +25,11 @@ export default class Timer extends Vue {
 	
 	@Emit()
 	start() {
-		if (this.isTimerDone) {
-			this.timerElapsed = 0;
+		if (this.timerElapsed <= 0 || this.isTimerDone) {
+			this.reset();
 		}
+
 		this.isTimerRunning = true;
-		this.currentSession = this.createSession();
 		
 		window.addEventListener('keydown', this.handleKeyUp, true);
 		window.addEventListener('mousedown', this.handleKeyUp, true);
@@ -41,21 +48,29 @@ export default class Timer extends Vue {
 
 	stop() {
 		this.pause();
-		this.timerElapsed = 0;
-		this.currentSession = this.createSession();
+		this.reset();
+	}
+
+	get clicksPerSecond() {
+		return (this.currentSession.clicks.length / (this.timerElapsed / 1000));
+	}
+
+	get isTimerDone() {
+		return (this.timerLengthSeconds > 0 && this.timerElapsed >= this.timerLengthSeconds);
+	}
+
+	get timerLengthSeconds(): number {
+		return (this.timerLength * 1000);
+	}
+	
+	get timerDisplay() {
+		const ms = moment.duration(this.timerElapsed / 1000, 'seconds');
+		return ms.asSeconds();
 	}
 
 	@Emit()
 	private done(session: ISession) {
 		session.elapsed = this.timerElapsed;
-	}
-
-	private handleKeyUp(e: any) {
-		this.currentSession.clicks.push(new Date());
-
-		if (typeof e.preventDefault === 'function') {
-			e.preventDefault();
-		}
 	}
 
 	@Watch('timerElapsed')
@@ -69,33 +84,10 @@ export default class Timer extends Vue {
 		}
 	}
 
-	get isTimerDone() {
-		return (this.timerElapsed >= this.timerLengthSeconds);
-	}
-
 	@Watch('timerLength')
 	private onTimerLengthChanged(value: number, oldValue: number) {
+		this.reset();
 		StorageService.saveTimerLength(value);
-	}
-
-	get timerLengthSeconds(): number {
-		return (this.timerLength * 1000);
-	}
-	
-	get timerDisplay() {
-		const ms = moment().set({
-			'month': 0,
-			'date': 1,
-			'hour': 0,
-			'minute': 0,
-			'second': 0,
-			'millisecond': this.timerElapsed
-		});
-		return ms.format('mm:ss.SSS');
-	}
-
-	private increaseTimer() {
-		this.timerElapsed = this.timerElapsed + timerIntervalMs;
 	}
 
 	private createSession(): ISession {
@@ -108,5 +100,22 @@ export default class Timer extends Vue {
 			elapsed: -1,
 			isExpanded: false
 		};
+	}
+
+	private handleKeyUp(e: any) {
+		this.currentSession.clicks.push(new Date());
+
+		if (typeof e.preventDefault === 'function') {
+			e.preventDefault();
+		}
+	}
+
+	private increaseTimer() {
+		this.timerElapsed = this.timerElapsed + timerIntervalMs;
+	}
+
+	private reset() {
+		this.timerElapsed = 0;
+		this.currentSession = this.createSession();
 	}
 }
