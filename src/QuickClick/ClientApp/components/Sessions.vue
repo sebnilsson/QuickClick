@@ -7,7 +7,8 @@
                 </span>
                 <div>
                     <h4 class="m-0">
-                        {{ sessions.length ? sessions.length : '' }} <small>Sessions</small>
+                        {{ sessions.length ? sessions.length : '' }}
+                        <small>{{ sessions.length === 1 ? 'Session' : 'Sessions' }}</small>
                     </h4>
                 </div>
             </div>
