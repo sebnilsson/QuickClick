@@ -1,6 +1,7 @@
 ﻿import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 
 import DateFilter from '../filters/DateFilter';
+import DateTimeFilter from '../filters/DateTimeFilter';
 import ElapsedFilter from '../filters/ElapsedFilter';
 import ISession from '../ISession';
 import TimeFilter from '../filters/TimeFilter';
@@ -23,11 +24,20 @@ export default class Sessions extends Vue {
 	created() {
 	}
 
+	remove(session: ISession) {
+		const isConfirmed = confirm(`Are you sure you want to remove the session from ${DateTimeFilter(session.startedAt)}?`);
+		if (!isConfirmed) {
+			return;
+		}
+
+		this.removeSession(session);
+	}
+
 	toggleDetails(session: ISession) {
 		session.isExpanded = !session.isExpanded;
 	}
 
-	@Emit()
-	private remove(session: ISession) {
+	@Emit('remove')
+	private removeSession(session: ISession) {
 	}
 }

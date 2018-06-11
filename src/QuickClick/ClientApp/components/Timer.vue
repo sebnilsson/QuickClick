@@ -15,9 +15,9 @@
                         </span>
 
                         <input v-model="timerLength" :disabled="isTimerRunning"
-                               id="timer-length" type="number" min="0" class="form-control text-right" list="defaulTtimerLengths" />
+                               id="timer-length" type="number" min="0" max="1800" class="form-control text-right" list="defaulTimerLengths" />
 
-                        <datalist id="defaulTtimerLengths">
+                        <datalist id="defaulTimerLengths">
                             <option value="10" />
                             <option value="20" />
                             <option value="30" />
@@ -55,6 +55,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="card">
+                    <div :class="{'bg-green': isTimerDone, 'bg-yellow': isTimerRunning && !isTimerDone, 'card-status card-status-left': true}"></div>
                     <div class="card-body p-3 text-center">
                         <div v-if="clicksPerSecond" class="text-right text-primary">
                             <i class="far fa-check-circle"></i>
@@ -62,7 +63,7 @@
                         </div>
                         <div v-else>&nbsp;</div>
 
-                        <div :class="{'bg-success text-white': isTimerDone, 'bg-warning': isTimerRunning && !isTimerDone, 'h1 m-0 text-monospace': true}">
+                        <div class="h1 m-0 text-monospace">
                             {{ timerDisplay | singledigit }}
                         </div>
                         <div class="text-muted mb-4">
@@ -74,6 +75,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="card">
+                    <div :class="{'bg-green': currentSession.clicks.length, 'card-status card-status-left': true}"></div>
                     <div class="card-body p-3 text-center">
                         <div class="text-right">
                             &nbsp;

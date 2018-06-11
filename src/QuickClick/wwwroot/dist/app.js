@@ -13591,10 +13591,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _filters_DateFilter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(22);
-/* harmony import */ var _filters_ElapsedFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
-/* harmony import */ var _filters_TimeFilter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
-/* harmony import */ var _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
-/* harmony import */ var _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
+/* harmony import */ var _filters_DateTimeFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
+/* harmony import */ var _filters_ElapsedFilter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var _filters_TimeFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
+/* harmony import */ var _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
+/* harmony import */ var _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(28);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -13620,6 +13621,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var Sessions = /** @class */ (function (_super) {
     __extends(Sessions, _super);
     function Sessions() {
@@ -13627,29 +13629,36 @@ var Sessions = /** @class */ (function (_super) {
     }
     Sessions.prototype.created = function () {
     };
+    Sessions.prototype.remove = function (session) {
+        var isConfirmed = confirm("Are you sure you want to remove the session from " + Object(_filters_DateTimeFilter__WEBPACK_IMPORTED_MODULE_2__["default"])(session.startedAt) + "?");
+        if (!isConfirmed) {
+            return;
+        }
+        this.removeSession(session);
+    };
     Sessions.prototype.toggleDetails = function (session) {
         session.isExpanded = !session.isExpanded;
     };
-    Sessions.prototype.remove = function (session) {
+    Sessions.prototype.removeSession = function (session) {
     };
     __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Prop"])({ default: function () { return []; } }),
         __metadata("design:type", Array)
     ], Sessions.prototype, "sessions", void 0);
     __decorate([
-        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Emit"])(),
+        Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Emit"])('remove'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
-    ], Sessions.prototype, "remove", null);
+    ], Sessions.prototype, "removeSession", null);
     Sessions = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             filters: {
-                'elapsed': _filters_ElapsedFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
+                'elapsed': _filters_ElapsedFilter__WEBPACK_IMPORTED_MODULE_3__["default"],
                 'date': _filters_DateFilter__WEBPACK_IMPORTED_MODULE_1__["default"],
-                'time': _filters_TimeFilter__WEBPACK_IMPORTED_MODULE_3__["default"],
-                'timems': _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_4__["default"],
-                'twodigit': _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_5__["default"]
+                'time': _filters_TimeFilter__WEBPACK_IMPORTED_MODULE_4__["default"],
+                'timems': _filters_TimeMsFilter__WEBPACK_IMPORTED_MODULE_5__["default"],
+                'twodigit': _filters_TwoDigitFilter__WEBPACK_IMPORTED_MODULE_6__["default"]
             }
         })
     ], Sessions);
@@ -13717,7 +13726,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (target) {
-    return moment__WEBPACK_IMPORTED_MODULE_0__(target).format('mm:ss.SSS');
+    var duration = moment__WEBPACK_IMPORTED_MODULE_0__["duration"](target);
+    var format = duration.minutes() > 0 ? 'HH:mm:ss.SSS' : (duration.minutes() > 0 ? 'mm:ss.SSS' : ':ss.SSS');
+    return moment__WEBPACK_IMPORTED_MODULE_0__(target).format(format);
 });
 
 
@@ -13951,7 +13962,8 @@ var render = function() {
                 id: "timer-length",
                 type: "number",
                 min: "0",
-                list: "defaulTtimerLengths"
+                max: "1800",
+                list: "defaulTimerLengths"
               },
               domProps: { value: _vm.timerLength },
               on: {
@@ -14020,6 +14032,14 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "card" }, [
+          _c("div", {
+            class: {
+              "bg-green": _vm.isTimerDone,
+              "bg-yellow": _vm.isTimerRunning && !_vm.isTimerDone,
+              "card-status card-status-left": true
+            }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "card-body p-3 text-center" }, [
             _vm.clicksPerSecond
               ? _c("div", { staticClass: "text-right text-primary" }, [
@@ -14032,23 +14052,13 @@ var render = function() {
                 ])
               : _c("div", [_vm._v(" ")]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                class: {
-                  "bg-success text-white": _vm.isTimerDone,
-                  "bg-warning": _vm.isTimerRunning && !_vm.isTimerDone,
-                  "h1 m-0 text-monospace": true
-                }
-              },
-              [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(_vm._f("singledigit")(_vm.timerDisplay)) +
-                    "\n                    "
-                )
-              ]
-            ),
+            _c("div", { staticClass: "h1 m-0 text-monospace" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm._f("singledigit")(_vm.timerDisplay)) +
+                  "\n                    "
+              )
+            ]),
             _vm._v(" "),
             _vm._m(3)
           ])
@@ -14057,6 +14067,13 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "card" }, [
+          _c("div", {
+            class: {
+              "bg-green": _vm.currentSession.clicks.length,
+              "card-status card-status-left": true
+            }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "card-body p-3 text-center" }, [
             _c("div", { staticClass: "text-right" }, [
               _vm._v("\n                         \n                    ")
@@ -14096,7 +14113,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("datalist", { attrs: { id: "defaulTtimerLengths" } }, [
+    return _c("datalist", { attrs: { id: "defaulTimerLengths" } }, [
       _c("option", { attrs: { value: "10" } }),
       _vm._v(" "),
       _c("option", { attrs: { value: "20" } }),
@@ -14348,6 +14365,20 @@ var Timer = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function (target) {
     return numeral(target).format('0,0.0');
+});
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (function (target) {
+    return moment__WEBPACK_IMPORTED_MODULE_0__(target).format('YYYY-MM-DD HH:mm:ss');
 });
 
 
