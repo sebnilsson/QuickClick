@@ -18,6 +18,10 @@ export default class SessionsGraph extends Vue {
 	}
 
 	private loadChartData(google: any) {
+		if (typeof this.$refs.chartWrapper === 'undefined') {
+			return;
+		}
+
 		const data = new google.visualization.DataTable();
 		data.addColumn('datetime', 'Started');
 		data.addColumn('number', 'Clicks/s');
@@ -41,16 +45,10 @@ export default class SessionsGraph extends Vue {
 			}
 		};
 
-		/*const xData: Array<any> = ['x'];
-		const sessionsData: Array<any> = ['sessions'];*/
-
 		const dataRows: Array<any> = [];
 
 		this.sessions.forEach(x => {
-			//xData.push(x.startedAt);
-
 			const clicksPerMinute = x.clicks.length / (x.elapsed / 1000);
-			//sessionsData.push(clicksPerMinute);
 
 			dataRows.push([x.startedAt, clicksPerMinute]);
 		});
