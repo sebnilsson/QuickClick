@@ -1,4 +1,6 @@
 ﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +19,14 @@
 <script src="~/dist/libs/js/moment.min.js"></script>
 <script src="~/dist/libs/js/numeral.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="~/dist/app.js"></script>
+@*<script src="~/dist/vendor.js"></script>*@
+    
+<environment names="Development">
+    <script src="~/dist/app.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="~/dist/app-bundle.js"></script>
+</environment>
 
 </body>
 </html>

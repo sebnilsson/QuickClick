@@ -33,6 +33,7 @@ export default class Timer extends Vue {
 		
 		window.addEventListener('keydown', this.handleKeyUp, true);
 		window.addEventListener('mousedown', this.handleKeyUp, true);
+		window.addEventListener('touchstart', this.handleKeyUp, true);
 
 		this.intervalId = setInterval(() => this.increaseTimer(), timerIntervalMs);
 	}
@@ -42,6 +43,7 @@ export default class Timer extends Vue {
 
 		window.removeEventListener('keydown', this.handleKeyUp, true);
 		window.removeEventListener('mousedown', this.handleKeyUp, true);
+		window.removeEventListener('touchstart', this.handleKeyUp, true);
 
 		clearInterval(this.intervalId);
 	}

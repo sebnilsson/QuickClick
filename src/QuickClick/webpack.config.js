@@ -1,21 +1,31 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+//const vendorConfig = require("./webpack.vendor.config");
+//const vendors = vendorConfig.entry.vendor;
 
 const distDir = path.resolve(__dirname, './wwwroot/dist/');
 
 module.exports = {
-    entry: { 'vue-app': ['./ClientApp/Main.ts'] },
+    entry: {
+        'app': [
+            './ClientApp/Main.ts'
+        ]
+    },
     output: {
         path: distDir,
-        filename: 'app.js'
+        publicPath: '/dist/'
     },
     resolve: {
         extensions: ['.ts', '.js', '.html'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
-            'moment': 'moment/min/moment.min.js'
+            'vue$': 'vue/dist/vue.esm.js'
         }
+    },
+    externals: {
+        //'vue': 'vue',
+        'moment': 'moment',
+        'numeral': 'numeral'
     },
     module: {
         rules: [
@@ -36,12 +46,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoaderPlugin(),
-        new CopyWebpackPlugin([
-            { from: './node_modules/moment/min/moment.min.js', to: './libs/js/' },
-            { from: './node_modules/numeral/min/numeral.min.js', to: './libs/js/' },
-            { from: './node_modules/bootstrap/dist/css/bootstrap.min.css', to: './libs/css/' },
-            { from: './node_modules/tabler-ui/dist/assets/css/dashboard.css', to: './libs/css/' }
-        ])
+        new VueLoaderPlugin()
     ]
 };
