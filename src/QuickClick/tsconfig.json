@@ -16,6 +16,5 @@
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false
   },
-  "include": ["ClientApp/**/*"],
   "compileOnSave": false
 }

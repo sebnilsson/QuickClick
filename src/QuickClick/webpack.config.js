@@ -1,51 +1,77 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-//const vendorConfig = require("./webpack.vendor.config");
-//const vendors = vendorConfig.entry.vendor;
-
-const distDir = path.resolve(__dirname, './wwwroot/dist/');
-
 module.exports = {
     entry: {
-        'app': [
-            './ClientApp/Main.ts'
-        ]
-    },
-    output: {
-        path: distDir,
-        publicPath: '/dist/'
+        'vendor': './ClientApp/Vendor.ts',
+        'app': './ClientApp/Main.ts'
     },
     resolve: {
-        extensions: ['.ts', '.js', '.html'],
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
+        extensions: ['.tsx', '.ts', '.js'],
+        modules: [path.resolve(__dirname , 'ClientApp'), 'node_modules']
     },
-    externals: {
-        //'vue': 'vue',
-        'moment': 'moment',
-        'numeral': 'numeral'
+    optimization: {
+        splitChunks: {
+            name: 'vendor',
+            chunks: 'all',
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
     },
     module: {
         rules: [
             {
-                test: /\.ts$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'ts-loader',
-                    options: {
-                        appendTsSuffixTo: [/\.vue$/]
-                    }
-                }
+                test: /\.vue$/,
+                loader: 'vue-loader'
+                //options: {
+                //    loaders: {
+                //        'scss': 'vue-style-loader!css-loader!sass-loader',
+                //        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                //    }
+                //}
             },
             {
-                test: /\.vue$/,
-                use: ['vue-loader']
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
+            },
+            {
+              test: /\.(svg|png|jpg|gif)$/,
+              loader: 'file-loader',
+              options: {
+                  name: '[name].[ext]',
+                  outputPath: './images/'
+              }
+            },
+            {
+              test: /\.(eot|ttf|woff|woff2)$/,
+              loader: 'file-loader',
+              options: {
+                  name: '[name].[ext]',
+                  outputPath: './fonts/'
+              }
             }
         ]
     },
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin()
     ]
 };

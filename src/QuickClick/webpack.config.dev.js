@@ -1,22 +1,25 @@
 const merge = require('extendify')({ isDeep: true, arrays: 'concat' });
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const path = require('path');
 const webpack = require('webpack');
 
 const baseConfig = require('./webpack.config');
 
+const devDir = path.resolve(__dirname, './wwwroot/dev/');
+
 const config = {
     mode: 'development',
-    devtool: 'source-map',
     output: {
-        filename: '[name].js'
+        path: devDir,
+        filename: '[name].js',
+        publicPath: '/dev/'
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"development"'
+        }),
         //new webpack.HotModuleReplacementPlugin(),
-        new UglifyJsPlugin({
-            cache: true,
-            parallel: true,
-            sourceMap: true
-        })
+        new webpack.NamedModulesPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ]
 };
 

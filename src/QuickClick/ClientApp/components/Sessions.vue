@@ -33,7 +33,7 @@
                             <i class="far fa-hand-pointer"></i>
                             Clicks
                         </th>
-                        <th>
+                        <th class="font-weight-bold">
                             <i class="far fa-check-circle"></i>
                             Clicks/s
                         </th>
@@ -55,7 +55,7 @@
                             <td class="text-right">
                                 {{ session.clicks.length || 0 }}
                             </td>
-                            <td class="text-right">
+                            <td class="font-weight-bold text-right">
                                 {{ session.clicks.length / (session.elapsed / 1000) | twodigit }}
                             </td>
                             <td>

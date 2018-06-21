@@ -1,7 +1,5 @@
-﻿declare const module: any;
-declare const require: Function;
-
-import { Vue, Component } from "vue-property-decorator";
+﻿import { Vue, Component } from 'vue-property-decorator';
+import '../styles/App.css';
 
 import ISession from '../ISession';
 import SessionService from '../SessionService';
@@ -40,12 +38,3 @@ export default class App extends Vue {
 		SessionService.add(this.sessions, session);
 	}
 }
-
-/*if (module && module['hot']) {
-	const api = require('vue-hot-reload-api');
-	//const Vue = require('vue');
-
-	api.install(Vue);
-
-	module['hot'].accept();
-}*/

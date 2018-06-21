@@ -1,4 +1,4 @@
-﻿import * as moment from 'moment';
+﻿import moment from 'moment';
 
 export default function(target: any) : any {
 	const duration = moment.duration(target);

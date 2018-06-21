@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="ClientApp\styles\App.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
   </ItemGroup>
 
-  <Target Name="_PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="npm install --production &amp;&amp; npm run build-vendor &amp;&amp; npm run build-release" />
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="npm install" />
   </Target>
 
 </Project>

@@ -1,6 +1,5 @@
-﻿declare const moment: any;
-
-import { Vue, Component, Emit, Watch } from "vue-property-decorator";
+﻿import { Vue, Component, Emit, Watch } from "vue-property-decorator";
+import moment from 'moment';
 
 import ISession from '../ISession';
 import StorageService from '../StorageService';
