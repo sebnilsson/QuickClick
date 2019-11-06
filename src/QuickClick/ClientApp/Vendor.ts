@@ -5,7 +5,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 
 // import 'bootstrap/dist/css/bootstrap.css';
-import 'tabler-ui/dist/assets/css/dashboard.css';
+// import 'tabler-ui/dist/assets/css/dashboard.css';
 
 Vue.prototype;
 

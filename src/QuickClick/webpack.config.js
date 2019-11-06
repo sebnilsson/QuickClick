@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -72,6 +73,10 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin(),
+        new CopyWebpackPlugin([
+            { from: './node_modules/bootstrap/dist/css/bootstrap.min.css', to: './libs/css/' },
+            { from: './node_modules/tabler-ui/dist/assets/css/dashboard.css', to: './libs/css/' }
+        ])
     ]
 };
